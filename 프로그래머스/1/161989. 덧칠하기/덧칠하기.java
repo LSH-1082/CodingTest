@@ -7,7 +7,6 @@ class Solution {
                 num = sec + m - 1;
                 count++;
             }
-            else continue;
         }
         return count;
     }
