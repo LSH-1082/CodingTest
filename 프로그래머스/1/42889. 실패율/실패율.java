@@ -4,17 +4,14 @@ class Solution {
     public int[] solution(int N, int[] stages) {
         int notClearPlayer = 0;
         int clearPlayer = 0;
-        int notReachPlayer = 0;
         HashMap<Integer, Float> map = new HashMap<>();
         for (int i = 1; i < N + 1; i++) {
             for (int num : stages) {
                 if(i == num) notClearPlayer++;
                 else if(i < num) clearPlayer++;
-                else notReachPlayer++;
             }
             float failRate = (float) notClearPlayer / (clearPlayer + notClearPlayer);
-            map.put(i, notReachPlayer == stages.length ? 0 : failRate);
-            notReachPlayer = 0;
+            map.put(i, clearPlayer + notClearPlayer == 0 ? 0 : failRate);
             notClearPlayer = 0;
             clearPlayer = 0;
         }
