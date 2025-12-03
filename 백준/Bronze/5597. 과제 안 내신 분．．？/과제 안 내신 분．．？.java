@@ -1,22 +1,16 @@
 import java.io.*;
-import java.util.LinkedHashSet;
 
 public class Main {
     public static void main(String[] args) throws IOException{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        
-        LinkedHashSet<Integer> set = new LinkedHashSet<>();
-        for(int i = 1; i < 31; i++) {
-            set.add(i);
-        }
+        int[] nums = new int[31];
 
-        for(int i = 0; i < 28; i++) {
-            int n = Integer.parseInt(br.readLine());
-            set.remove(n);
+        for(int i = 0; i < 28; i++){
+            nums[Integer.parseInt(br.readLine())] = 1;
         }
-        for(int n : set){
-            bw.write(n + "\n");
+        for(int i = 1; i < 31; i++) {
+            if(nums[i] == 0) bw.write(i + "\n");
         }
         bw.flush();
     }
