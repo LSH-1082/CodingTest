@@ -7,11 +7,14 @@ public class Main
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 		int n = Integer.parseInt(br.readLine());
 		char[] c = br.readLine().toCharArray();
-		int answer = 0;
+		long answer = 0;
+        long pow = 1;
+        int mod = 1234567891;
 		for(int i = 0; i < n; i++) {
-		    answer += (int) ((c[i] - 'a') + 1) * Math.pow(31, i);
+            answer = (answer + (c[i] - 'a' + 1) * pow) % mod;
+            pow = pow * 31 % mod;
 		}
-		bw.write(answer + "");
+        bw.write(answer + "");
 		bw.flush();
 	}
 }
