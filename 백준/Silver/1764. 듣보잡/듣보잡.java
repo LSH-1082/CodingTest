@@ -1,6 +1,6 @@
 import java.io.*;
+import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -9,7 +9,7 @@ public class Main {
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         StringTokenizer st = new StringTokenizer(br.readLine());
         HashSet<String> s = new HashSet<>();
-        LinkedList<String> ls = new LinkedList<>();
+        ArrayList<String> ls = new ArrayList<>();
 
         int notHeard = Integer.parseInt(st.nextToken());
         int notLooked = Integer.parseInt(st.nextToken());
