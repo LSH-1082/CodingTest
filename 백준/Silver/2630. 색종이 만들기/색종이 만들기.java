@@ -1,5 +1,5 @@
 import java.io.*;
-import java.util.stream.Stream;
+import java.util.StringTokenizer;
 
 public class Main {
     static int[][] paper;
@@ -8,13 +8,15 @@ public class Main {
     public static void main(String[] args) throws IOException{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-
+        StringTokenizer st;
         int n = Integer.parseInt(br.readLine());
         paper = new int[n][n];
 
         for(int i = 0; i < n; i++) {
-            int[] nums = Stream.of(br.readLine().split(" ")).mapToInt(Integer::parseInt).toArray();
-            paper[i] = nums; 
+            st = new StringTokenizer(br.readLine());
+            for(int j = 0; j < n; j++) {
+                paper[i][j] = Integer.parseInt(st.nextToken());
+            }
         }
 
         solve(0, 0, n);
@@ -30,13 +32,15 @@ public class Main {
 			    if(paper[i][j] != n) return false;
 		    }
         }
-        if(n == 0) wCount++;
-        if(n == 1) bCount++;
         return true;
     }
 
     public static void solve(int r, int c, int size) {
-        if(!check(r, c, size)) {
+        if(check(r, c, size)) {
+            if(paper[r][c] == 1) bCount++;
+            else wCount++;
+        }
+        else {
             int nextSize = size / 2;
             solve(r, c, nextSize);
             solve(r, c + nextSize, nextSize);
