@@ -3,6 +3,8 @@ import java.util.stream.Stream;
 
 public class Main {
     static int[][] paper;
+    static int bCount = 0;
+    static int wCount = 0;
     public static void main(String[] args) throws IOException{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
@@ -14,29 +16,32 @@ public class Main {
             int[] nums = Stream.of(br.readLine().split(" ")).mapToInt(Integer::parseInt).toArray();
             paper[i] = nums; 
         }
-        bw.write(solve(0, 0, n, 0) + "\n");
-        bw.write(solve(0, 0, n, 1) + "");
+
+        solve(0, 0, n);
+        bw.write(wCount + "\n");
+        bw.write(bCount + "");
         bw.flush();
     }
 
-    public static boolean check(int r, int c, int size, int flag) {
+    public static boolean check(int r, int c, int size) {
+        int n = paper[r][c];
         for(int i = r; i < size + r; i++) {
             for(int j = c; j < size + c; j++) {
-			    if(paper[i][j] != flag) return false;
+			    if(paper[i][j] != n) return false;
 		    }
         }
+        if(n == 0) wCount++;
+        if(n == 1) bCount++;
         return true;
     }
 
-    public static int solve(int r, int c, int size, int flag) {
-        if(check(r, c, size, flag)) return 1;
-        else if(size == 1) return 0;
-        else {
+    public static void solve(int r, int c, int size) {
+        if(!check(r, c, size)) {
             int nextSize = size / 2;
-            return solve(r, c, nextSize, flag) + 
-                    solve(r, c + nextSize, nextSize, flag) + 
-                    solve(r + nextSize, c, nextSize, flag) + 
-                    solve(r + nextSize, c + nextSize, nextSize, flag);
+            solve(r, c, nextSize);
+            solve(r, c + nextSize, nextSize);
+            solve(r + nextSize, c, nextSize);
+            solve(r + nextSize, c + nextSize, nextSize);
         }
     }	
 }
