@@ -29,26 +29,25 @@ public class Main {
         }
 
         boolean[] isVisited = new boolean[node + 1];
+        Queue<Integer> q = new LinkedList<>();
         int cnt = 0;
+
         for(int i = 1; i <= node; i++) {
-            if(isVisited[i]) {
-                continue;
-            }
+            if(isVisited[i]) continue;
 
             cnt++;
 
-            Queue<Integer> q = new LinkedList<>();
+            isVisited[i] = true;
             q.add(i);
+
             while(!q.isEmpty()) {
                 int num = q.poll();
-                if(isVisited[num]) {
-                    continue;
-                }
-                isVisited[num] = true;
-                ArrayList<Integer> list = new ArrayList<>(graph[num]);
 
-                for(int n : list) {
-                    q.add(n);
+                for(int n : graph[num]) {
+                    if(!isVisited[n]) {
+                        isVisited[n] = true;
+                        q.add(n);
+                    }
                 }
             }
         }
