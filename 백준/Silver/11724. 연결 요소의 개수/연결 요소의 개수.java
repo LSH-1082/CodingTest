@@ -4,6 +4,8 @@ import java.util.StringTokenizer;
 
 public class Main {
     private static int cnt = 0;
+    private static ArrayList<Integer>[] graph;
+    private static boolean[] isVisited;
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
@@ -12,7 +14,7 @@ public class Main {
         int node = Integer.parseInt(st.nextToken());
         int edge = Integer.parseInt(st.nextToken());
 
-        ArrayList<Integer>[] graph = new ArrayList[node + 1];
+        graph = new ArrayList[node + 1];
 
         for(int i = 0; i <= node; i++) {
             graph[i] = new ArrayList<>();
@@ -27,13 +29,14 @@ public class Main {
             graph[childrenNode].add(parentNode);
         }
 
-        boolean[] isVisited = new boolean[node + 1];
+        isVisited = new boolean[node + 1];
 
         for(int i = 1; i <= node; i++) {
-            if(!isVisited[i]) cnt++;
-            dfs(graph, isVisited, i);
+            if(!isVisited[i]) {
+                cnt++;
+                dfs(i);
+            }
         }
-
 
         bw.write(cnt + "");
         bw.flush();
@@ -41,12 +44,12 @@ public class Main {
         bw.close();
     }
 
-    public static void dfs(ArrayList<Integer>[] graph, boolean[] isVisited, int startNode) {
+    public static void dfs(int startNode) {
         isVisited[startNode] = true;
 
         for(int num : graph[startNode]) {
             if(!isVisited[num]) {
-                dfs(graph, isVisited, num);
+                dfs(num);
             }
         }
     }
